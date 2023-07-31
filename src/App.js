@@ -1,24 +1,31 @@
 import logo from './logo.svg';
 import './App.css';
+import PostsList from './features/posts/PostsList';
+import AddPost from './features/posts/AddPost';
+import { SinglePostPage } from './features/posts/SinglePostPage';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 
 function App() {
   return (
+    <Router>
+    <Navbar />
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Switch>
+        <Route
+          exact
+          path="/"
+          render={() => (
+            <React.Fragment>
+              <AddPost />
+              <PostsList />
+            </React.Fragment>
+          )}
+        />
+        <Route exact path="/posts/:postId" component={SinglePostPage} />
+        <Redirect to="/" />
+      </Switch>
     </div>
+  </Router>
   );
 }
 
